@@ -2,10 +2,8 @@ site_name: Computer-Assisted Image Clustering
 
 nav:
   - Start: index.md
-  - Instructions:
-    - Instructions: instructions/instructions.md
-  - Clusterings:
-    - Clusterings: clusterings/clusterings.md
+  - Instructions: instructions/instructions.md
+  - Clusterings: clusterings/clusterings.md
   - Extras:
     - Extras: extras/extras.md
 
