@@ -15,3 +15,6 @@
 
 ## Clustering 6
 ![](../polarvis_collocations/C6_collocation.png)
+
+## Clustering 7
+![](../polarvis_collocations/C7_collocation.png)
