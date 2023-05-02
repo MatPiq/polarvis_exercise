@@ -6,11 +6,11 @@ reasons, one of them being that if done manually by the researcher, it may be
 very time consuming or even infeasible for large datasets. In this context, an
 automated and computational method called
 [clustering](https://en.wikipedia.org/wiki/Cluster_analysis) might be
-interesting—not only as a way to assign images to catagories, but also as a
+interesting—not only as a way to assign images to categories, but also as a
 tool for inductively *exploring* what categories may exist in the data. In
 general, the objective of clustering methods is to create a partition of the
 data into groups that are internally coherent and distinct from each other.
-Exactly how this is achived, differs between methods in e.g. by how the
+Exactly how this is achieved, differs between methods in e.g. by how the
 distance or similarity between the objects being clustered is measured. An
 important task, independent of what clustering method is used, is to
 assess the validity of the results. 
@@ -29,7 +29,7 @@ assess the validity of the results.
 	be done by looking at the images and how they are placed in different
 	clusters [here](../../clusterings/clusterings/).
 
-	[^1]: A
+	[^1]: Ainstru
 	[hyperparameter](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning))
 	is a value that is set prior to fitting the clustering method to the
 	data and that controls or affects some aspect of learning from the
@@ -85,7 +85,7 @@ assess the validity of the results.
 	       concepts do they operationalize? Are they scientifically
 	       relevant?
 
-	3. Cluster quality can be improved by brining the researcher into the
+	3. Cluster quality can be improved by bringing the researcher into the
 	   loop and providing input to the clustering methods. This can nudge
 	   the algorithms to better consider *your* particular research
 	   objective, prior knowledge and domain expertise. 
