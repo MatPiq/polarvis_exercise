@@ -6,7 +6,7 @@ template: home.html
 
 <br/><br/>
 
-<img src="assets/polarvis_logo.png" alt="drawing" width="200"/>
+<img src="assets/polarvis_logo.png" alt="drawing" width="300"/>
 
 <br/><br/>
 
@@ -23,7 +23,7 @@ template: home.html
 <!-- |Dev tools|15:15-16:00|Jupyter notebooks, VSCode| -->
 <!-- |UPPMAX Tour|16:00-16:15|Visit of the serverhall with Jerker -->
 
-[Get started!](/instructions/instructions){ .md-button .md-button--primary }
+[Get started!](/instructions/instructions/){ .md-button .md-button--primary }
 
 <br/><br/>
 
