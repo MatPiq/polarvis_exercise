@@ -18,24 +18,29 @@ assess the validity of the results.
 
 !!! exercise "The task"
 	In this exercise, we have prepared six different and fully automated
-	*clusterings* of 150 images from the COP21 conference, collected as
-	part of the *PolarVis* project. A clustering is the resulting
-	assignment of images into clusters produced by one particular
+	*clusterings* of 150 images from the COP21 conference, collected as part of
+	the *PolarVis* project. The images were taken from tweets by Swedish
+	accounts containing the hashtag
+	**[`#COP21`](https://twitter.com/search/?q=%28%23COP21)**. An account was
+	defined as *Swedish* if it had at least one **`#COP21`** Tweet, where
+	Twitter had classified the language as Swedish. A clustering is the
+	resulting assignment of images into clusters produced by one particular
 	clustering method and set of
 	[hyperparameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning))
-	[^1]. The goal of this exercise is for you to explore the different
-	clusterings, evaluate their quality and discuss the potential
-	usefullness of these methods for discovery and measurement. This will
-	be done by looking at the images and how they are placed in different
-	clusters [here](../../clusterings/clusterings/).
+	[^1]. 
 
-	[^1]: Ainstru
+	The goal of this exercise is for you to explore the different clusterings,
+	evaluate their quality and discuss the potential usefullness of these
+	methods for discovery and measurement in your research. This will be done
+	by inpsecting the images and how they are placed in different clusters
+	[here](../../clusterings/clusterings/).
+
+	[^1]: A
 	[hyperparameter](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning))
-	is a value that is set prior to fitting the clustering method to the
-	data and that controls or affects some aspect of learning from the
-	data. In the context of clustering, the most important hyperparameter
-	is typically the number of clusters (groups).
-
+	is a value that is set prior to fitting the clustering method to the data
+	and that controls or affects some aspect of learning from the data. In the
+	context of clustering, the most important hyperparameter is typically the
+	number of clusters (groups).
 
 
 !!! info "Practicalities"
