@@ -18,6 +18,6 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install mkdocs-material mkdocs-glightbox mkdocs-bibtex
+      - run: pip install mkdocs-material mkdocs-glightbox mkdocs-bibtex pypandoc_binary
       - run: mkdocs gh-deploy --force
 
