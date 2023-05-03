@@ -12,10 +12,9 @@ template: home.html
 
 # Group Exercise: Computer-Assisted Image Clustering
 
-<!-- This is the last module of the [UPPMAX intro -->
-<!-- course](https://www.uppmax.uu.se/support/courses-and-workshops/introductory-course-winter-2023/) -->
-<!-- and introduces the foundations of the [`Python`](https://www.python.org/) programming language. -->
+By: *Matias Piqueras, Alexandra Segerberg, Matteo Magnani* and *Victoria Yantseva*
 
+<br/><br/>
 <!-- |Topic|Time|Content| -->
 <!-- |-----|-----|-------| -->
 <!-- |Intro to UPPMAX|13.15-14:00|Uppmax, NAISS, login, navigation, modules, SLURM| -->
