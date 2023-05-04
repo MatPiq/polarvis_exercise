@@ -15,6 +15,3 @@
 
 ??? tip "Clustering 6"
     ![](../polarvis_collocations/C6_collocation.png)
-
-??? tip "Clustering 7"
-    ![](../polarvis_collocations/C7_collocation.png)
