@@ -63,9 +63,9 @@ assess the validity of the results.
 	* Questionarie for Q1 (individual exercise): <https://doit.medfarm.uu.se/bin/kurt3/kurt/92173>
 	* Padlet for Q2 and Q3 (group exercise).
 		* Group 1: <https://padlet.com/matiaspiqueras/group-1-vyhfrjhk6hwbhq0k>
-		* Group 2:
-		* Group 3:
-	* Collective padlet for plenum discussion: 
+		* Group 2: <https://padlet.com/matiaspiqueras/group-2-5tlbez5cs85e8s1d>
+		* Group 3: <https://padlet.com/matiaspiqueras/group-3-grvnjywdpvhd2dkh>
+	* Collective padlet for plenum discussion: <https://padlet.com/vyantseva/padlet-ihyaitbw25m3yr0a>
 
 
 !!! question "Questions"
