@@ -1,0 +1,734 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../background/">
+      
+      
+        <link rel="next" href="../validation_strategies/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>How the clustering was done - Computer-Assisted Image Clustering</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#image-feature-extraction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Computer-Assisted Image Clustering" class="md-header__button md-logo" aria-label="Computer-Assisted Image Clustering" data-md-component="logo">
+      
+  <img src="../../assets/polarvis_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Computer-Assisted Image Clustering
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              How the clustering was done
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Start
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../instructions/instructions/" class="md-tabs__link">
+      Instructions
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../clusterings/clusterings/" class="md-tabs__link">
+      Clusterings
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../background/" class="md-tabs__link md-tabs__link--active">
+        Extras
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Computer-Assisted Image Clustering" class="md-nav__button md-logo" aria-label="Computer-Assisted Image Clustering" data-md-component="logo">
+      
+  <img src="../../assets/polarvis_logo.png" alt="logo">
+
+    </a>
+    Computer-Assisted Image Clustering
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Start
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../instructions/instructions/" class="md-nav__link">
+        Instructions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clusterings/clusterings/" class="md-nav__link">
+        Clusterings
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Extras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Extras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../background/" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          How the clustering was done
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        How the clustering was done
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image-feature-extraction" class="md-nav__link">
+    Image Feature Extraction
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Feature Extraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-representation-in-computers" class="md-nav__link">
+    Image Representation in Computers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-feature-extraction" class="md-nav__link">
+    Automatic Feature Extraction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means-clustering" class="md-nav__link">
+    K-Means Clustering
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation_strategies/" class="md-nav__link">
+        Additional validation strategies
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image-feature-extraction" class="md-nav__link">
+    Image Feature Extraction
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Feature Extraction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-representation-in-computers" class="md-nav__link">
+    Image Representation in Computers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-feature-extraction" class="md-nav__link">
+    Automatic Feature Extraction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k-means-clustering" class="md-nav__link">
+    K-Means Clustering
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>How the clustering was done</h1>
+
+<p>This section provides a by no means complete description of how the clustering
+was performed for clusterings 1-5. Clustering 6 was performed by Luca.</p>
+<h2 id="image-feature-extraction">Image Feature Extraction<a class="headerlink" href="#image-feature-extraction" title="Anchor link to this section for reference">&para;</a></h2>
+<p>Automated methods for clustering on the computer work with numbers that are
+assumed to directly capture the <em>similarity</em> or <em>distance</em> in some relevant
+way, between the objects being clustered. For example, say that we want to
+group people based on their <em>age</em> into three distinct cluster. In this case, we
+could record their age in years and perhaps we do so for eight persons and put
+it in a list <code>age_list = [4, 90, 45, 76, 9, 43, 2, 87]</code>. A reasonable
+clustering based on this list would be <code>cluster_1 = [2, 4]</code>, <code>cluster_2 = [45,
+43]</code> and <code>cluster_3 = [76, 87, 90]</code>. Note that we could have represented age
+differently using e.g. the date the person formatted as <code>1978 jan 21</code> but in
+this case we would have to tell the computer how the distance between two dates,
+formatted in this particular way, is calculated. Heuristically, clustering works
+if the <a href="https://en.wikipedia.org/wiki/Absolute_value">absolute value</a> you get when
+<em>subtracting</em> one of the objects being clustered from the other is small if they are 
+<em>similar</em> and large if they are <em>different</em>.</p>
+<h3 id="image-representation-in-computers">Image Representation in Computers<a class="headerlink" href="#image-representation-in-computers" title="Anchor link to this section for reference">&para;</a></h3>
+<p>In computers images are represented as grids of
+<a href="https://en.wikipedia.org/wiki/Pixel">pixels</a>, in which each cell of the grid
+(also called matrix) corresponds to the amount of <em>brightness</em> of that
+particular pixel. The number of pixels along the rows and columns of the grid
+corresponds to the resolution and aspect ratio. For example your laptop might
+be able to display 1920 (width) × 1080 (height) = 2,073,600 pixels.</p>
+<p>If the image is gray-scale, then the convention is that the value 0 is completely black,
+255 is completely white and everything in between are different shades of gray. For example
+the number 8 can be represented in a 16 × 24 grid as seen in the image below <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<figure>
+<p><a class="glightbox" href="../imgs/img_representation.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../imgs/img_representation.png" /></a></p>
+<figcaption>A grayscale image of the number 8</figcaption>
+</figure>
+<p>For color images we follow the same principle but instead stack three grids for
+the primary colors <span style="color:red">Red</span>, <span
+style="color:green">Green</span>. and <span style="color:blue">Blue</span>
+(<a href="https://en.wikipedia.org/wiki/RGB_color_model">RGB</a>) as shown in the image
+below <sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<figure>
+<p><a class="glightbox" href="../imgs/dog.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../imgs/dog.png" /></a></p>
+<figcaption>A color image of a dog</figcaption>
+</figure>
+<p>Given that images are represented in this way as numbers, we might think that
+we can cluster this representation directly. As we will see this is
+unfortunately rarely a good idea if we want to compute some form of similarity
+or distance between the images, since it assumes that individual pixel
+locations in represent relevant and comparable aspects of the image. This makes
+comparisons highly sensitive to things like <em>rotation</em>, <em>scale</em>, <em>resolution</em>,
+<em>aspect ratio</em>, exact <em>position</em> and that the things we are interested in
+always look the same across images. Let us look at two examples from the
+<code>PolarVis</code> data. As humans we can clearly and immediately see that this picture
+of Obama at COP21</p>
+<figure>
+<p><a class="glightbox" href="../imgs/obama.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image 1" src="../imgs/obama.png" style="height:83" /></a></p>
+<figcaption>Obama at COP21</figcaption>
+</figure>
+<p>is the same as the one below. The only difference being that the second picture
+has been flipped.</p>
+<figure>
+<p><a class="glightbox" href="../imgs/obama_flip.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image 2" src="../imgs/obama_flip.png" style="height:83" /></a></p>
+<figcaption>Flipped Obama at COP21</figcaption>
+</figure>
+<p>Remembering our heuristic for when we are able to cluster, we can try
+subtracting the second image of Obama from the first one. Provided that these
+two are essentially the same image (in any relevant sense) we would hope the
+resulting image to be completely black, since the pixel values should be 0. In
+other words, we want the representation to be invariant to rotations of the
+same image. As we see in the image below—this is certainly not the case.</p>
+<figure>
+<p><a class="glightbox" href="../imgs/obama_obama.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image 2" src="../imgs/obama_obama.png" style="height:83" /></a></p>
+<figcaption>Obama-flipped Obama at COP21</figcaption>
+</figure>
+<p>We can look at a second example from the <code>PolarVis</code> data. This time we take two
+completely different images but that are substantively similar. </p>
+<figure>
+<p><a class="glightbox" href="../imgs/map1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image 3" src="../imgs/map1.png" style="height:83" /></a></p>
+<figcaption>Map 1</figcaption>
+</figure>
+<p>Both images show a map of the world and seem to highlight something about the
+emissions of each country.</p>
+<figure>
+<p><a class="glightbox" href="../imgs/map2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image 4" src="../imgs/map2.png" style="height:83" /></a></p>
+<figcaption>Map 2</figcaption>
+</figure>
+<p>Subtracting one from the other again leads to nonsensical results and if taken
+at face value—that the images are very different from one another when most
+people would probably say that they are closely related.</p>
+<figure>
+<p><a class="glightbox" href="../imgs/map1-map2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image 5" src="../imgs/map1-map2.png" style="height:83" /></a></p>
+<figcaption>Map 1 - Map 2</figcaption>
+</figure>
+<p>One way to solve the issue presented here is to instead compare relevant
+<em>features</em> of the images that are invariant to all of the challenges we saw in
+the examples above. Many methods exist for the task of finding relevant
+features, also called <em><a href="https://en.wikipedia.org/wiki/Feature_extraction">feature
+extraction</a></em>. In principle,
+this is what we did when encoding <em>age</em> as a numeric value corresponding to the
+number of years of the person, and it is not dissimilar to what we would do
+when designing a coding scheme. To see that comparing the features of images at
+least in principles makes it possible to cluster images we could define the
+binary feature, <code>map</code> that takes the value 1 if the image has a map and 0
+otherwise, and we can also define <code>emission</code> which again takes the value 1 if
+the image is somehow related to global emissions and 0 otherwise. We can now
+calculate the distance between the images and see that they are indeed very
+similar according to our definition of relevant features.</p>
+<p>$$
+dist(img_1, img_2) = map_{img1} - map_{img2} + emission_{img1} - emission_{img2} = |1-1| + |1-1| = 0
+$$</p>
+<h3 id="automatic-feature-extraction">Automatic Feature Extraction<a class="headerlink" href="#automatic-feature-extraction" title="Anchor link to this section for reference">&para;</a></h3>
+<p>In the previous example, we defined the relevant features as two binary
+variables <code>map</code> and <code>emission</code> manually. Doing this for all relevant features,
+in a large dataset is often times unfeasible and defeats the purpose of
+automated clustering. For this reason, the features for clustering in this
+workshop were extracted automatically. The dominant approach (also used here)
+to this in modern image analysis is using <em><a href="https://en.wikipedia.org/wiki/Deep_learning">Deep
+Learning</a></em>. The key innovation is
+that a deep learning model is able to <em>learn</em> which features are relevant, not
+by us imposing assumptions about what they should be, but rather through us
+defining a task, by which the model must learn what features are important in
+order to perform well. The task could for example be for the model to predict
+whether an image is about a protest or not. The reason why deep learning models
+are sometimes referred to as black boxes is that these features are not always
+directly interpretable or meaningful for us humans. As such, it can be
+difficult understanding why a model has produced a particular
+result—emphasising the need to rigorously validate any result in part produced
+by a deep learning model. The field of <a href="https://en.wikipedia.org/wiki/Explainable_artificial_intelligence"><em>Explainable
+AI</em></a> tries
+to open up the black box in order to better understand the inner workings of
+the model. In early work by <sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, they introduce a method
+for analyzing how the different layers in a neural network are "activated",
+which can give us some insights into what kind of features are being
+learned. An example from the paper is shown in the figure below which shows
+how the second layer (left panel) picks up the patterns of the input images
+(right panel).</p>
+<figure>
+<p><a class="glightbox" href="../imgs/cnn_features.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../imgs/cnn_features.png" /></a></p>
+</figure>
+<p>For a more comprehensive introduction to deep learning for image analysis from
+a social science perspective you can read the paper by Torres and Cantú
+<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
+<h4 id="transfer-learning">Transfer Learning<a class="headerlink" href="#transfer-learning" title="Anchor link to this section for reference">&para;</a></h4>
+<p>In this workshop we used a so called <em>pretrained</em> version of a deep learning
+model named CLIP to extract a feature representation of the 150 COP21 images
+<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. Transfer learning means that we can
+repurpose a model trained for a particular purpose on a new or similar task.
+This is very practical since Deep learning is very expensive in the sense that
+it generally needs a lot of data and compute power to perform well AKA learning
+good and relevant features. This particular version has been pretrained on
+dataset called <a href="https://laion.ai/blog/laion-5b/">LAION-5B</a> which contains 5,85
+billion image-text pairs. The share amount of images </p>
+<h2 id="k-means-clustering">K-Means Clustering<a class="headerlink" href="#k-means-clustering" title="Anchor link to this section for reference">&para;</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/K-means_clustering">K-Means Clustering</a> is one
+of the simplest and also one of the most popular clustering algorithms. After
+extracting the feature vector as described above, this is what has been used to
+actually generate the clusters 1-5. The steps of the algorithm are:</p>
+<div class="admonition info">
+<p class="admonition-title">K-Means algorithm</p>
+<ol>
+<li>Randomly select a chosen number of images from the dataset to be
+   "cluster centers" (also called centroids). The number of cluster centers
+   is specified <em>a priori</em> by the researcher.</li>
+<li>Calculate the <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean
+   distance</a> between the
+   centers and all other images. Assign each image to the cluster for which
+   the distance to the center is the smallest.</li>
+<li>Calculate a new centers for each cluster by taking the means value of
+   all its images.</li>
+<li>Repeat steps 2 and 3 until images have stopped being reassigned, i.e.
+   the clusters have stabilized.</li>
+</ol>
+</div>
+<p>One important </p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Zeiler, M. D., &amp; Fergus, R. (2014). Visualizing and understanding convolutional networks. <em>Computer Vision–ECCV 2014: 13th European Conference, Zurich, Switzerland, September 6-12, 2014, Proceedings, Part i 13</em>, 818–833. Springer.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Torres, M., &amp; Cantú, F. (2022). Learning to See: Convolutional Neural Networks for the Analysis of Social Science Data. <em>Political Analysis</em>, <em>30</em>(1), 113–131. <a href="https://doi.org/10.1017/pan.2021.9">https://doi.org/10.1017/pan.2021.9</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., … Sutskever, I. (2021). <em>Learning Transferable Visual Models From Natural Language Supervision</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2103.00020">https://doi.org/10.48550/arXiv.2103.00020</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
