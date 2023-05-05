@@ -15,3 +15,12 @@
 
 ??? tip "Clustering 6"
     ![](../polarvis_collocations/C6_collocation.png)
+
+
+## Movements and countermovements
+
+??? tip "Counteractors"
+    ![](../polarvis_collocations/C1_co_collocation.png)
+
+??? tip "Actors"
+    ![](../polarvis_collocations/C1_sm_collocation.png)
