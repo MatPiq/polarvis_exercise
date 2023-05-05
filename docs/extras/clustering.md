@@ -1,7 +1,6 @@
 
 This section provides a by no means complete description of how the clustering
-was performed for clusterings 1-5. Clustering 6 was performed by LR and exactly
-how, is a mystery to me.
+was performed for clusterings 1-5. Clustering 6 was performed by Luca.
 
 
 ## Image Feature Extraction
@@ -142,34 +141,68 @@ variables `map` and `emission` manually. Doing this for all relevant features,
 in a large dataset is often times unfeasible and defeats the purpose of
 automated clustering. For this reason, the features for clustering in this
 workshop were extracted automatically. The dominant approach (also used here)
-to this in modern image analysis is through *[Deep
+to this in modern image analysis is using *[Deep
 Learning](https://en.wikipedia.org/wiki/Deep_learning)*. The key innovation is
-that a deep learning model is able to *learn* which features are relevant not
+that a deep learning model is able to *learn* which features are relevant, not
 by us imposing assumptions about what they should be, but rather through us
 defining a task, by which the model must learn what features are important in
-order to perform well. The task could for example be for  the model to predict
+order to perform well. The task could for example be for the model to predict
 whether an image is about a protest or not. The reason why deep learning models
 are sometimes referred to as black boxes is that these features are not always
 directly interpretable or meaningful for us humans. As such, it can be
 difficult understanding why a model has produced a particular
-result—emphasising the need to rigorously validate any result in part
-produced by a deep learning model. For a more comprehensive introduction to
-deep learning for image analysis from a social science perspective you can read
-the paper by Torres and Cantú [@torresLearningSeeConvolutional2022].
+result—emphasising the need to rigorously validate any result in part produced
+by a deep learning model. The field of [*Explainable
+AI*](https://en.wikipedia.org/wiki/Explainable_artificial_intelligence) tries
+to open up the black box in order to better understand the inner workings of
+the model. In early work by [@zeiler2014visualizing], they introduce a method
+for analyzing how the different layers in a neural network are "activated",
+which can give us some insights into what kind of features are being
+learned. An example from the paper is shown in the figure below which shows
+how the second layer (left panel) picks up the patterns of the input images
+(right panel).
+
+<figure markdown>
+![](imgs/cnn_features.png)
+</figure>
+
+For a more comprehensive introduction to deep learning for image analysis from
+a social science perspective you can read the paper by Torres and Cantú
+[@torresLearningSeeConvolutional2022].
 
 
 #### Transfer Learning
 
-In this workshop we used a so called *pretrained* version of a model named CLIP
-to extract a feature representation of the 150 COP21 images
+In this workshop we used a so called *pretrained* version of a deep learning
+model named CLIP to extract a feature representation of the 150 COP21 images
 [@radfordLearningTransferableVisual2021]. Transfer learning means that we can
-reuse a model trained for a particular purpose on a new or similar task. This
-is very practical since Deep learning is very expensive in the sense that it
-generally needs a lot of data and compute power to perform well AKA learning
+repurpose a model trained for a particular purpose on a new or similar task.
+This is very practical since Deep learning is very expensive in the sense that
+it generally needs a lot of data and compute power to perform well AKA learning
 good and relevant features. This particular version has been pretrained on
 dataset called [LAION-5B](https://laion.ai/blog/laion-5b/) which contains 5,85
-billion image-text pairs
-
+billion image-text pairs. The share amount of images 
 
 
 ## K-Means Clustering
+
+[K-Means Clustering](https://en.wikipedia.org/wiki/K-means_clustering) is one
+of the simplest and also one of the most popular clustering algorithms. After
+extracting the feature vector as described above, this is what has been used to
+actually generate the clusters 1-5. The steps of the algorithm are:
+
+!!! info "K-Means algorithm"
+    1. Randomly select a chosen number of images from the dataset to be
+       "cluster centers" (also called centroids). The number of cluster centers
+       is specified *a priori* by the researcher.
+    2. Calculate the [Euclidean
+       distance](https://en.wikipedia.org/wiki/Euclidean_distance) between the
+       centers and all other images. Assign each image to the cluster for which
+       the distance to the center is the smallest.
+    3. Calculate a new centers for each cluster by taking the means value of
+       all its images.
+    4. Repeat steps 2 and 3 until images have stopped being reassigned, i.e.
+       the clusters have stabilized.
+
+One important 
+
