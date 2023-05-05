@@ -54,9 +54,9 @@ assess the validity of the results.
 
 	**Groups**
 
-	* Group 1: VY, ...
-	* Group 2: MM, ...
-	* Group 3: AS, ...
+	* Group 1: VY, FÅ, LR, NR, SM
+	* Group 2: MM, EK, LA, ND, AW
+	* Group 3: AS, KU, ML, PT
 
 	**Important Links**
 
