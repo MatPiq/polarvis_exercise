@@ -17,7 +17,7 @@
     ![](../polarvis_collocations/C6_collocation.png)
 
 
-## Movements and countermovements
+## Actors and counteractors
 
 ??? tip "Counteractors"
     ![](../polarvis_collocations/C1_co_collocation.png)
