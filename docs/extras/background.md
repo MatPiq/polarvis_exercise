@@ -30,7 +30,7 @@ models [@robertsStructuralTopicModels2014; @quinnHowAnalyzePolitical2010, @grimm
 We can hopefully draw and learn from this literature, while keeping in mind
 that images are fundamentally different from text, i.e. the atomic unit of text
 is a word which caries meaning, while in images it is a pixel which without
-context provides no information.
+context provides little to no information.
 
 In this tab we will briefly detail how the clustering of the images was
 performed (see next [section](clustering.md)), as well as discuss additional
